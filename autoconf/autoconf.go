@@ -38,17 +38,15 @@ var useTLS = flag.Bool("etcd-use-tls", true,
 
 var etcdClient *etcd.Client
 var etcdOnce *sync.Once
+var etcdOnceError error
 
 /*
 DefaultEtcdClient returns an etcd instance configured from the default etcd
 flags. A new instance is constructed on demand.
 */
 func DefaultEtcdClient() (*etcd.Client, error) {
-	var err error
-
-	etcdOnce.Do(func() { etcdClient, err = buildDefaultEtcdClient() })
-
-	return etcdClient, err
+	etcdOnce.Do(func() { etcdClient, etcdOnceError = buildDefaultEtcdClient() })
+	return etcdClient, etcdOnceError
 }
 
 /*

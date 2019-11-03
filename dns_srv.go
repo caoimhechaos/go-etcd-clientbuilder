@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	etcd "github.com/coreos/etcd/clientv3"
+	etcd "go.etcd.io/etcd/clientv3"
 )
 
 /*
